@@ -3,7 +3,7 @@ from __future__ import division
 from __future__ import print_function
 
 from compas_fea.fea.abaq import abaq
-from compas_fea.fea.ansys import ansys
+# from compas_fea.fea.ansys import ansys
 from compas_fea.fea.opensees import opensees
 
 # from compas_fea.utilities import combine_all_sets

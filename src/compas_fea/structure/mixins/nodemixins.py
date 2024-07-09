@@ -4,7 +4,9 @@ from __future__ import print_function
 
 from compas_fea.structure import Node
 
-from compas.utilities import geometric_key
+# from compas.utilities import geometric_key
+from compas.tolerance import Tolerance
+TOL = Tolerance()
 
 
 # Author(s): Andrew Liew (github.com/andrewliew), Tomas Mendez Echenagucia (github.com/tmsmendez)
@@ -106,7 +108,8 @@ class NodeMixins(object):
 
         """
 
-        gkey = geometric_key(xyz, '{0}f'.format(self.tol))
+        # gkey = geometric_key(xyz, '{0}f'.format(self.tol))
+        gkey = TOL.geometric_key(xyz)
         if virtual:
             self.virtual_node_index[gkey] = key
         else:
@@ -132,7 +135,8 @@ class NodeMixins(object):
         """
 
         xyz = [float(i) for i in xyz]
-        return self.node_index.get(geometric_key(xyz, '{0}f'.format(self.tol)), None)
+        # return self.node_index.get(geometric_key(xyz, '{0}f'.format(self.tol)), None)
+        return self.node_index.get(TOL.geometric_key(xyz), None)
 
     def edit_node(self, key, attr_dict):
         """ Edit a node's data.

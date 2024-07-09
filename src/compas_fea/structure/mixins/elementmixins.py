@@ -3,7 +3,9 @@ from __future__ import division
 from __future__ import print_function
 
 from compas.geometry import centroid_points
-from compas.utilities import geometric_key
+# from compas.utilities import geometric_key
+from compas.tolerance import Tolerance
+TOL = Tolerance()
 
 from compas_fea.structure.element import BeamElement
 from compas_fea.structure.element import SpringElement
@@ -140,7 +142,8 @@ class ElementMixins(object):
         """
 
         centroid = centroid_points([self.node_xyz(node) for node in nodes])
-        gkey = geometric_key(centroid, '{0}f'.format(self.tol))
+        # gkey = geometric_key(centroid, '{0}f'.format(self.tol))
+        gkey = TOL.geometric_key(centroid)
 
         if virtual:
             self.virtual_element_index[gkey] = key
@@ -173,7 +176,8 @@ class ElementMixins(object):
         if not xyz:
             xyz = centroid_points([self.node_xyz(node) for node in nodes])
 
-        gkey = geometric_key(xyz, '{0}f'.format(self.tol))
+        # gkey = geometric_key(xyz, '{0}f'.format(self.tol))
+        gkey = TOL.geometric_key(xyz)
 
         if virtual:
             return self.virtual_element_index.get(gkey, None)

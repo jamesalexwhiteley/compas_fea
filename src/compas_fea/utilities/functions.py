@@ -5,7 +5,9 @@ from __future__ import print_function
 from compas.datastructures import Mesh
 from compas.geometry import distance_point_point
 from compas.topology import dijkstra_path
-from compas.utilities import geometric_key
+# from compas.utilities import geometric_key
+from compas.tolerance import Tolerance
+TOL = Tolerance()
 
 from time import time
 
@@ -404,7 +406,7 @@ def network_order(start, structure, network):
 
     """
     gkey_key = network.gkey_key()
-    start = gkey_key[geometric_key(start, '{0}f'.format(structure.tol))]
+    start = gkey_key[TOL.geometric_key(start, '{0}f'.format(structure.tol))]
     leaves = network.leaves()
     leaves.remove(start)
     end = leaves[0]
